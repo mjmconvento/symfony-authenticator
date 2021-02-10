@@ -16,11 +16,11 @@
 {% block javascripts %}
     <script type="text/javascript">
         const userAction = async (tenantName) => {
-            const response = await fetch('http://localhost:8000/api/get_products?tenant=' + tenantName, {
-                method: 'GET',
+            const response = await fetch("{{ path('api_get_products') }}?tenant=" + tenantName, {
+                method: "GET",
                 headers: {
-                  'Content-Type': 'application/json',
-                  'X-AUTH-TOKEN': '{{ api_key }}'
+                    "Content-Type": "application/json",
+                    "X-AUTH-TOKEN": "{{ api_key }}"
                 }
             });
             
@@ -38,8 +38,8 @@
             let cellOneHeader = rowHeader.insertCell(0);
             let cellTwoHeader = rowHeader.insertCell(1);
 
-            cellOneHeader.innerHTML = '<strong>Category</strong>';
-            cellTwoHeader.innerHTML = '<strong>Products</strong>';
+            cellOneHeader.innerHTML = "<strong>Category</strong>";
+            cellTwoHeader.innerHTML = "<strong>Products</strong>";
 
             for (let x = 0; x <= categories.length - 1; x++) {
                 const row = table.insertRow(x + 1),
@@ -48,7 +48,7 @@
 
                 cellOneData.innerHTML = categories[x].category_name;
 
-                let productText = '';
+                let productText = "";
 
                 for (let y = 0; y <= categories[x].products.length - 1; y++) {
                     productText +=  "<div>" + categories[x].products[y].name + "</div>";
@@ -62,6 +62,6 @@
             userAction(tenantName);
         };
 
-        userAction('{{ tenant }}');
+        userAction("{{ tenant }}");
     </script>
 {% endblock %}

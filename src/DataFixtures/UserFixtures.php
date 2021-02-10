@@ -21,8 +21,8 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail('mjmconvento@gmail.com');
         $user->setPassword($this->encoder->encodePassword($user, 'password'));
+        $user->setApiKey('api_key_12345');
         $manager->persist($user);
- 
         $manager->flush();
     }
 }
