@@ -11,7 +11,7 @@ doctrine:
             dbname:
                 # configure these for your database server
                 # url: '%env(DATABASE_URL)%'
-                url: "%env(DEFAULT_DB_ENGINE)%://%env(DEFAULT_DB_USERNAME)%:\
+                url: "%env(DEFAULT_DB_ENGINE)%://%env(DEFAULT_DB_USER)%:\
                     %env(DEFAULT_DB_PASSWORD)%@%env(DEFAULT_DB_HOST)%:\
                     %env(DEFAULT_DB_PORT)%/%env(DEFAULT_DB_NAME)%?\
                     serverVersion=%env(DEFAULT_DB_SERVER_VERSION)%"
