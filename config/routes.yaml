@@ -1,3 +1,8 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+homepage:
+    path: /
+    controller: App\Controller\SecurityController::login
+    methods: GET
+
+secured_page:
+    path: /secured_page
+    controller: App\Controller\SecuredPageController::securedPage

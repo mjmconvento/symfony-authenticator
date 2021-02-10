@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block title %}Secured Page{% endblock %}
+{% block body %}
+    <div>
+        Select DB:
+        <select id="db_change" onchange="changeDb(this.value)">
+            {% for tenant in tenantList %}
+                <option value="{{ tenant.getTenantName }}">{{ tenant.getTenantName }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <table border="1" id="categories_table"></table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+        const userAction = async (tenantName) => {
+            const response = await fetch('http://localhost:8000/api/get_products?tenant=' + tenantName, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-AUTH-TOKEN': '{{ api_key }}'
+                }
+            });
+            
+            const myJson = await response.json();
+
+            appendDataToTable(Object.values(myJson));
+        }
+
+        const appendDataToTable = (categories) => {
+            const table = document.getElementById("categories_table");
+            table.innerHTML = '';
+
+            rowHeader = table.insertRow(0);
+
+            let cellOneHeader = rowHeader.insertCell(0);
+            let cellTwoHeader = rowHeader.insertCell(1);
+
+            cellOneHeader.innerHTML = '<strong>Category</strong>';
+            cellTwoHeader.innerHTML = '<strong>Products</strong>';
+
+            for (let x = 0; x <= categories.length - 1; x++) {
+                const row = table.insertRow(x + 1),
+                    cellOneData = row.insertCell(0),
+                    cellTwoData = row.insertCell(1);
+
+                cellOneData.innerHTML = categories[x].category_name;
+
+                let productText = '';
+
+                for (let y = 0; y <= categories[x].products.length - 1; y++) {
+                    productText +=  "<div>" + categories[x].products[y].name + "</div>";
+                }
+
+                cellTwoData.innerHTML = productText;
+            }
+        }
+
+        const changeDb = (tenantName) => {
+            userAction(tenantName);
+        };
+
+        userAction('{{ tenant }}');
+    </script>
+{% endblock %}

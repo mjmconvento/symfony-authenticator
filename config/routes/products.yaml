@@ -1,0 +1,14 @@
+create_product_page:
+    path: /product/create
+    controller: App\Controller\ProductController::createProductPage
+    methods: GET
+
+create_product_save:
+    path: /product/create
+    controller: App\Controller\ProductController::createProductSave
+    methods: POST
+
+api_get_products:
+    path: /api/get_products
+    controller: App\Controller\ProductApiController::getProducts
+    

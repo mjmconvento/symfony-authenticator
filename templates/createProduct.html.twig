@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Create Product{% endblock %}
+{% block body %}
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <form action="{{ path('create_product_save') }}" method="POST">
+        <div>
+            Tenant DB:
+            <select name="tenant_id" id="tenant">
+                {% for t in tenants %}
+                    <option value="{{ t.getId }}">{{ t.getTenantName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            Category:
+            <select name="category_id" id="category">
+                {% for c in categories %}
+                    <option value="{{ c.getId }}">{{ c.getName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            Name: <input type="text" name="name">
+        </div>
+        <div>
+            Price: <input type="text" name="price">
+        </div>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock %}
+
